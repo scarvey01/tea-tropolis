@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://cru4lq57uqwu1"]
+
+[ext_resource type="Script" uid="uid://dt6qgupvndjnu" path="res://menu screens/mode_select.gd" id="1_s5hxx"]
+[ext_resource type="Texture2D" uid="uid://bxa6q2ltjhgbw" path="res://Untitled.png" id="2_r21yi"]
+
+[node name="mode select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 3.0
+offset_right = -2.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s5hxx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -68.0
+offset_right = 156.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Normal" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Normal"
+
+[node name="Hardcore" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hardcore"
+
+[node name="School" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "School"
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 236.0
+
+[node name="logo" type="Sprite2D" parent="CenterContainer"]
+position = Vector2(576.422, 126.318)
+texture = ExtResource("2_r21yi")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Normal" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/School" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/School" to="." method="_on_school_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

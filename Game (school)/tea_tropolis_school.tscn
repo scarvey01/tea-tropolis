@@ -1,0 +1,211 @@
+[gd_scene load_steps=8 format=3 uid="uid://du3qtyr67kyc5"]
+
+[ext_resource type="Texture2D" uid="uid://bib4evy7tlg0x" path="res://Game (school)/textures/abstract-surface-textures-white-concrete-stone-wall_74190-8189.png" id="1_4hdnx"]
+[ext_resource type="Script" uid="uid://bt5b3rvjng254" path="res://Game (school)/tea_tropolis_school.gd" id="1_66eql"]
+[ext_resource type="Texture2D" uid="uid://bchw2ll5wfabf" path="res://Game (school)/textures/smooth-gray-background-with-high-quality_53876-124606.png" id="2_v3kle"]
+[ext_resource type="Texture2D" uid="uid://cuuvr8ldkwgls" path="res://Game (school)/textures/button icons/settings.png" id="4_66eql"]
+
+[sub_resource type="GDScript" id="GDScript_66eql"]
+script/source = "extends TextureButton
+
+"
+
+[sub_resource type="Theme" id="Theme_66eql"]
+
+[sub_resource type="Theme" id="Theme_yk80m"]
+
+[node name="Tea-Tropolis School" type="Node2D"]
+script = ExtResource("1_66eql")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Base" type="CanvasLayer" parent="."]
+
+[node name="White" type="TextureRect" parent="Base"]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_4hdnx")
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Base"]
+offset_left = 564.0
+offset_top = 29.0
+offset_right = 1304.0
+offset_bottom = 522.0
+scale = Vector2(0.0318345, 1.2537)
+texture = ExtResource("2_v3kle")
+
+[node name="top bar" type="TextureRect" parent="Base"]
+offset_top = -257.0
+offset_right = 1152.0
+offset_bottom = 239.0
+scale = Vector2(1, 0.12)
+pivot_offset = Vector2(192, 291.667)
+texture = ExtResource("2_v3kle")
+metadata/_edit_lock_ = true
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="settings button" type="TextureButton" parent="gui"]
+offset_left = 1096.0
+offset_top = 6.0
+offset_right = 1608.0
+offset_bottom = 518.0
+scale = Vector2(0.0980388, 0.0945814)
+toggle_mode = true
+texture_normal = ExtResource("4_66eql")
+script = SubResource("GDScript_66eql")
+metadata/_edit_lock_ = true
+
+[node name="Teaamt" type="RichTextLabel" parent="gui"]
+offset_left = 600.0
+offset_top = 66.0
+offset_right = 1144.0
+offset_bottom = 106.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Tea:"
+
+[node name="Money" type="RichTextLabel" parent="gui"]
+offset_left = 600.0
+offset_top = 104.0
+offset_right = 1144.0
+offset_bottom = 144.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Money: "
+
+[node name="tea_ps" type="RichTextLabel" parent="gui"]
+offset_left = 600.0
+offset_top = 144.0
+offset_right = 1144.0
+offset_bottom = 184.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 15
+text = "tea p/s"
+
+[node name="sell_tea" type="Button" parent="gui"]
+offset_left = 600.0
+offset_top = 184.0
+offset_right = 712.0
+offset_bottom = 215.0
+theme_override_colors/icon_focus_color = Color(0.807843, 0.807843, 0.807843, 1)
+theme_override_colors/icon_normal_color = Color(0.772549, 0.772549, 0.772549, 1)
+text = "sell tea"
+
+[node name="settings menu" type="CanvasLayer" parent="gui"]
+visible = false
+
+[node name="settings menu" type="Node2D" parent="gui/settings menu"]
+position = Vector2(1096, 6)
+scale = Vector2(0.0980388, 0.0945814)
+
+[node name="white" type="TextureRect" parent="gui/settings menu/settings menu"]
+offset_left = -7344.03
+offset_top = 866.978
+offset_right = -3346.03
+offset_bottom = 6110.98
+theme = SubResource("Theme_66eql")
+texture = ExtResource("1_4hdnx")
+
+[node name="right side" type="TextureRect" parent="gui/settings menu/settings menu"]
+offset_left = -3509.0
+offset_top = 1290.0
+offset_right = -2623.0
+offset_bottom = 6111.0
+scale = Vector2(0.183997, 1)
+texture = ExtResource("2_v3kle")
+
+[node name="left side" type="TextureRect" parent="gui/settings menu/settings menu"]
+offset_left = -7344.0
+offset_top = 1290.0
+offset_right = -6457.0
+offset_bottom = 6111.0
+scale = Vector2(0.183997, 1)
+texture = ExtResource("2_v3kle")
+
+[node name="top bar" type="TextureRect" parent="gui/settings menu/settings menu"]
+offset_left = -7344.0
+offset_top = 867.0
+offset_right = -3346.0
+offset_bottom = 1360.0
+texture = ExtResource("2_v3kle")
+
+[node name="bottom bar" type="TextureRect" parent="gui/settings menu/settings menu"]
+offset_left = -7344.03
+offset_top = 5857.39
+offset_right = -3346.03
+offset_bottom = 6350.39
+scale = Vector2(1, 0.577071)
+texture = ExtResource("2_v3kle")
+
+[node name="settings options" type="CanvasLayer" parent="gui/settings menu/settings menu"]
+visible = false
+
+[node name="settings label" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 376.0
+offset_top = 88.0
+offset_right = 768.0
+offset_bottom = 136.0
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+language = "english"
+
+[node name="dark mode label" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 272.0
+offset_top = 160.0
+offset_right = 664.0
+offset_bottom = 208.0
+theme = SubResource("Theme_yk80m")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Dark mode"
+horizontal_alignment = 1
+vertical_alignment = 1
+language = "english"
+
+[node name="CheckButton" type="CheckButton" parent="gui/settings menu/settings menu/settings options"]
+anchors_preset = -1
+anchor_right = 0.035
+anchor_bottom = 0.025
+offset_left = 688.0
+offset_top = 152.0
+offset_right = 691.68
+offset_bottom = 207.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 408.0
+offset_top = 480.0
+offset_right = 736.0
+offset_bottom = 552.0
+
+[node name="main menu" type="Button" parent="gui/settings menu/settings menu/settings options/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="quit" type="Button" parent="gui/settings menu/settings menu/settings options/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="total_tea" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 416.0
+offset_top = 208.0
+offset_right = 744.0
+offset_bottom = 248.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Total Tea Collected: "
+
+[node name="total_money" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 416.0
+offset_top = 240.0
+offset_right = 744.0
+offset_bottom = 280.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Money all time:  "
+
+[connection signal="pressed" from="gui/settings button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
+[connection signal="pressed" from="gui/sell_tea" to="." method="_on_button_pressed"]
+[connection signal="visibility_changed" from="gui/settings menu/settings menu" to="." method="_on_settings_menu_visibility_changed"]
+[connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/quit" to="." method="_on_quit_pressed"]
