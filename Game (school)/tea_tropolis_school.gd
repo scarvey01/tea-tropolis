@@ -1,21 +1,24 @@
 extends Node2D
 var setting_menu_open = true
 var dark_mode = false
-var level = 1
-var xp = 90
-var levelxp = 100
-var tea = 20
+var level = 1 #LEVEL LEVEL LEVEL LEVEL LEVEL LEVEL
+var xp = 0 #########################
+var levelxp = 100########################
+var tea = 0## TEA TEA TEA TEA TEA TEA TEA TEA
 var teaps = 1
-var tea_all_time = 0
+var tea_all_time = 0 
 var teatomoney = 0.5
-var money = 0
+var money = 0 ### Money Money Money Money Money Money
 var money_all_time = 0
 var money_spent = 0
 var seed_cost = 10
-var max_seed = 10
+var max_seed = 9
 var seed_owned = 0
 var farmer_cost = 100
 var farmer_owned = 0
+var age_rack_cost = 2500
+var aging_cost = 1000
+var aged = false
 
 func _ready():
 	# Create a new Timer
@@ -35,6 +38,8 @@ func _on_timer1_timeout(): #REFRESHES EVERYTHING
 	tea += teaps
 	tea_all_time += teaps
 	update_all()
+func check_level():
+	age_rack_level()
 #RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES
 func display_tea():
 	$gui/Teaamt.text = "Tea: " + str(tea)
@@ -43,9 +48,11 @@ func display_money():
 func display_teaps():
 	$gui/tea_ps.text = "Tea p/s: " + str(teaps)
 func _on_sell_tea_pressed():
+	aged1()
 	money+= tea * teatomoney
 	money_all_time+= tea * teatomoney
 	tea = 0	
+	aged = false
 func display_level():
 	$gui/Level.text = "Level: " + str(level)
 func display_needed_xp():
@@ -59,7 +66,21 @@ func leveling():
 		level += 1
 		levelxp += 50
 		xp = 0
-#BUY STUFF LEFT SIDE BUY STUFF LEFT SIDE BUY STUFF LEFT SIDE  BUY STUFF LEFT SIDE  BUY STUFF LEFT SIDE
+func display_age_tea_cost():
+	$gui/age_tea.text = "Age Tea: $" + str (aging_cost)
+func _on_age_tea_pressed():
+	if money >= aging_cost:
+		money -= aging_cost
+		money_spent += aging_cost
+		xp += 10
+		aged = true
+func aged1():
+	if aged:
+		teatomoney += 0.5
+	elif not aged:
+		teatomoney *= 1
+
+#BUY FARMING BUY FARMING BUY FARMING BUY FARMING BUY FARMING
 func _on_buy_seeds_pressed():
 	if money >= seed_cost and seed_owned <= max_seed:
 		money -= seed_cost
@@ -70,16 +91,35 @@ func _on_buy_seeds_pressed():
 		teaps += 1
 func display_seed_cost():
 	$gui/Farming/buy_seeds.text = "Buy Seeds: $" + str(seed_cost)
-func _on_buy_farmers_pressed():
-	money -= farmer_cost
-	farmer_cost += 100
-	max_seed += 2
 func display_farmer_cost():
-	$"gui/Farming/Buy_farmers".text = "Hire Farmers: $" + str(farmer_cost)
+	$gui/Farming/Buy_farmer.text = "Hire Farmers: $" + str(farmer_cost)
+func _on_buy_farmer_pressed():
+	if level >= 2 and money >= farmer_cost:
+		money -= farmer_cost
+		farmer_owned += 1
+		money_spent += farmer_cost
+		farmer_cost += 100
+		max_seed += 2
+		xp += 20
 func display_seed_owned():
 	$gui/Farming/seed_owned.text = "Owned: " + str(seed_owned)
 func display_farmer_owned():
 	$gui/Farming/farmer_owned.text = "Hired: " +str(farmer_owned)
+func age_rack_level():
+	if level >= 3:
+		$gui/buy_aging_rack.visible =true
+func display_buy_aging_rack():
+	$gui/buy_aging_rack.text = "Buy Aging Rack: $" + str(age_rack_cost)
+func _on_buy_aging_rack_pressed():
+	if money >= age_rack_cost and level >= 5:
+		money -= age_rack_cost
+		money_spent += age_rack_cost
+		xp+= 25
+		$gui/buy_aging_rack.visible = false
+		$gui/age_tea.visible = true
+		$gui/buffs.visible = true
+func display_age_cost():
+	$gui/age_tea.text = "age tea: $" + str(aging_cost)
 #SETTINGS MENU SETTINGS MENU SETTINGS MENUSETTINGS MENU SETTINGS MENU SETTINGS MENU 
 func openclosesettings(): #Toggles visibility of settings menu node
 	if setting_menu_open:
@@ -122,6 +162,7 @@ func _on_darkmode_pressed():
 func update_all():
 	display_tea()
 	display_money()
+	check_level()
 	display_teaps()
 	display_total_tea()
 	display_total_money()
@@ -134,3 +175,5 @@ func update_all():
 	display_needed_xp()
 	diplay_xp_bar()
 	leveling()
+	display_buy_aging_rack()
+	display_age_cost()

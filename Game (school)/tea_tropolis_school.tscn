@@ -249,13 +249,12 @@ offset_right = 200.0
 offset_bottom = 148.0
 text = "Buy seeds"
 
-[node name="Buy_farmers" type="Button" parent="gui/Farming"]
+[node name="Buy_farmer" type="Button" parent="gui/Farming"]
 offset_left = 8.0
 offset_top = 160.0
 offset_right = 200.0
 offset_bottom = 192.0
-text = "hire farmers
-"
+text = "Buy farmers"
 
 [node name="seed_owned" type="RichTextLabel" parent="gui/Farming"]
 anchors_preset = -1
@@ -304,6 +303,41 @@ offset_bottom = 42.0
 text = "0/0"
 horizontal_alignment = 1
 
+[node name="buy_aging_rack" type="Button" parent="gui"]
+visible = false
+offset_left = 8.0
+offset_top = 204.0
+offset_right = 200.0
+offset_bottom = 236.0
+text = "Buy aging rack"
+
+[node name="age_tea" type="Button" parent="gui"]
+visible = false
+offset_left = 600.0
+offset_top = 296.0
+offset_right = 792.0
+offset_bottom = 328.0
+text = "Age Tea"
+
+[node name="buffs" type="RichTextLabel" parent="gui"]
+visible = false
+offset_left = 600.0
+offset_top = 256.0
+offset_right = 712.0
+offset_bottom = 296.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Buffs:"
+
+[node name="Farming" type="RichTextLabel" parent="."]
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 112.0
+offset_bottom = 103.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Farming"
+
 [connection signal="pressed" from="gui/settings button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_button_pressed"]
@@ -312,5 +346,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="gui/Farming/buy_seeds" to="." method="_on_buy_seeds_pressed"]
-[connection signal="pressed" from="gui/Farming/Buy_farmers" to="." method="_on_buy_seeds_pressed"]
-[connection signal="pressed" from="gui/Farming/Buy_farmers" to="." method="_on_buy_farmers_pressed"]
+[connection signal="pressed" from="gui/Farming/Buy_farmer" to="." method="_on_buy_farmer_pressed"]
+[connection signal="pressed" from="gui/buy_aging_rack" to="." method="_on_buy_aging_rack_pressed"]
+[connection signal="pressed" from="gui/age_tea" to="." method="_on_age_tea_pressed"]
