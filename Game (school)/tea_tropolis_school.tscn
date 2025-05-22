@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://du3qtyr67kyc5"]
+[gd_scene load_steps=11 format=3 uid="uid://du3qtyr67kyc5"]
 
 [ext_resource type="Texture2D" uid="uid://bib4evy7tlg0x" path="res://Game (school)/textures/abstract-surface-textures-white-concrete-stone-wall_74190-8189.png" id="1_4hdnx"]
 [ext_resource type="Script" uid="uid://bt5b3rvjng254" path="res://Game (school)/tea_tropolis_school.gd" id="1_66eql"]
 [ext_resource type="Texture2D" uid="uid://bchw2ll5wfabf" path="res://Game (school)/textures/smooth-gray-background-with-high-quality_53876-124606.png" id="2_v3kle"]
+[ext_resource type="Texture2D" uid="uid://b1tedpbkbypj" path="res://Game (school)/textures/gray background 2.png" id="3_yk80m"]
 [ext_resource type="Texture2D" uid="uid://cuuvr8ldkwgls" path="res://Game (school)/textures/button icons/settings.png" id="4_66eql"]
 
 [sub_resource type="GDScript" id="GDScript_66eql"]
@@ -13,6 +14,11 @@ script/source = "extends TextureButton
 [sub_resource type="Theme" id="Theme_66eql"]
 
 [sub_resource type="Theme" id="Theme_yk80m"]
+
+[sub_resource type="Theme" id="Theme_7gw3p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61ta2"]
+bg_color = Color(2.98411e-06, 0.701272, 0.419457, 1)
 
 [node name="Tea-Tropolis School" type="Node2D"]
 script = ExtResource("1_66eql")
@@ -27,11 +33,25 @@ offset_bottom = 648.0
 texture = ExtResource("1_4hdnx")
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="Base"]
-offset_left = 564.0
-offset_top = 29.0
-offset_right = 1304.0
-offset_bottom = 522.0
+[node name="gray" type="TextureRect" parent="Base"]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("3_yk80m")
+metadata/_edit_lock_ = true
+
+[node name="middle bar" type="TextureRect" parent="Base"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -293.0
+offset_right = 727.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.0318345, 1.2537)
 texture = ExtResource("2_v3kle")
 
@@ -76,10 +96,10 @@ theme_override_font_sizes/normal_font_size = 25
 text = "Money: "
 
 [node name="tea_ps" type="RichTextLabel" parent="gui"]
-offset_left = 600.0
-offset_top = 144.0
-offset_right = 1144.0
-offset_bottom = 184.0
+offset_left = 592.0
+offset_top = 152.0
+offset_right = 1136.0
+offset_bottom = 192.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 15
 text = "tea p/s"
@@ -153,10 +173,10 @@ vertical_alignment = 1
 language = "english"
 
 [node name="dark mode label" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
-offset_left = 272.0
-offset_top = 160.0
-offset_right = 664.0
-offset_bottom = 208.0
+offset_left = 262.0
+offset_top = 164.0
+offset_right = 654.0
+offset_bottom = 212.0
 theme = SubResource("Theme_yk80m")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Dark mode"
@@ -164,7 +184,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 language = "english"
 
-[node name="CheckButton" type="CheckButton" parent="gui/settings menu/settings menu/settings options"]
+[node name="darkmode" type="CheckButton" parent="gui/settings menu/settings menu/settings options"]
 anchors_preset = -1
 anchor_right = 0.035
 anchor_bottom = 0.025
@@ -203,9 +223,94 @@ offset_bottom = 280.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Money all time:  "
 
+[node name="money_spent" type="RichTextLabel" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 416.0
+offset_top = 272.0
+offset_right = 744.0
+offset_bottom = 312.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Money spent all time:  "
+
+[node name="Farming" type="CanvasLayer" parent="gui"]
+
+[node name="Farming" type="RichTextLabel" parent="gui/Farming"]
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 112.0
+offset_bottom = 103.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Farming"
+
+[node name="buy_seeds" type="Button" parent="gui/Farming"]
+offset_left = 8.0
+offset_top = 116.0
+offset_right = 200.0
+offset_bottom = 148.0
+text = "Buy seeds"
+
+[node name="Buy_farmers" type="Button" parent="gui/Farming"]
+offset_left = 8.0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 192.0
+text = "hire farmers
+"
+
+[node name="seed_owned" type="RichTextLabel" parent="gui/Farming"]
+anchors_preset = -1
+anchor_right = 0.139
+anchor_bottom = 0.086
+offset_left = 208.0
+offset_top = 119.0
+offset_right = 215.872
+offset_bottom = 103.272
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Owned"
+
+[node name="farmer_owned" type="RichTextLabel" parent="gui/Farming"]
+anchors_preset = -1
+anchor_right = 0.139
+anchor_bottom = 0.086
+offset_left = 208.0
+offset_top = 163.0
+offset_right = 215.872
+offset_bottom = 147.272
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Hired"
+
+[node name="Level" type="RichTextLabel" parent="gui"]
+offset_left = 8.0
+offset_top = 17.0
+offset_right = 88.0
+offset_bottom = 65.0
+text = "Level"
+
+[node name="ProgressBar" type="ProgressBar" parent="gui"]
+offset_left = 96.0
+offset_top = 16.0
+offset_right = 416.0
+offset_bottom = 43.0
+theme = SubResource("Theme_7gw3p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_61ta2")
+step = 1.0
+show_percentage = false
+
+[node name="level_xp_need" type="RichTextLabel" parent="gui"]
+offset_left = 96.0
+offset_top = 18.0
+offset_right = 416.0
+offset_bottom = 42.0
+text = "0/0"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="gui/settings button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_button_pressed"]
 [connection signal="visibility_changed" from="gui/settings menu/settings menu" to="." method="_on_settings_menu_visibility_changed"]
+[connection signal="pressed" from="gui/settings menu/settings menu/settings options/darkmode" to="." method="_on_darkmode_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="gui/Farming/buy_seeds" to="." method="_on_buy_seeds_pressed"]
+[connection signal="pressed" from="gui/Farming/Buy_farmers" to="." method="_on_buy_seeds_pressed"]
+[connection signal="pressed" from="gui/Farming/Buy_farmers" to="." method="_on_buy_farmers_pressed"]
