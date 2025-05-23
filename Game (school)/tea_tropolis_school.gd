@@ -1,14 +1,14 @@
 extends Node2D
 var setting_menu_open = true
 var dark_mode = false
-var level = 1 #LEVEL LEVEL LEVEL LEVEL LEVEL LEVEL
+var level = 5 #LEVEL LEVEL LEVEL LEVEL LEVEL LEVEL
 var xp = 0 #########################
 var levelxp = 100########################
-var tea = 0## TEA TEA TEA TEA TEA TEA TEA TEA
+var tea = 1000000000## TEA TEA TEA TEA TEA TEA TEA TEA
 var teaps = 1
 var tea_all_time = 0 
 var teatomoney = 0.5
-var money = 0 ### Money Money Money Money Money Money
+var money = 10000 ### Money Money Money Money Money Money
 var money_all_time = 0
 var money_spent = 0
 var seed_cost = 10
@@ -18,10 +18,13 @@ var farmer_cost = 100
 var farmer_owned = 0
 var age_rack_cost = 2500
 var aging_cost = 1000
-var aged = false
+var aging_tea = 0
+var Timer2 = Timer.new()
+var batch = false
 
 func _ready():
 	# Create a new Timer
+	Timer2.stop()
 	var timer1 = Timer.new()
 	timer1.wait_time = 1.0
 	timer1.one_shot = false
@@ -41,18 +44,19 @@ func _on_timer1_timeout(): #REFRESHES EVERYTHING
 func check_level():
 	age_rack_level()
 #RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES
+func _process(delta):
+	display_slider_tea()
+	
 func display_tea():
-	$gui/Teaamt.text = "Tea: " + str(tea)
+	$gui/Teaamt.text = "Tea: " + str(int(tea))
 func display_money():
 	$gui/Money.text = "Money: " + str(money)
 func display_teaps():
 	$gui/tea_ps.text = "Tea p/s: " + str(teaps)
 func _on_sell_tea_pressed():
-	aged1()
 	money+= tea * teatomoney
 	money_all_time+= tea * teatomoney
 	tea = 0	
-	aged = false
 func display_level():
 	$gui/Level.text = "Level: " + str(level)
 func display_needed_xp():
@@ -67,19 +71,36 @@ func leveling():
 		levelxp += 50
 		xp = 0
 func display_age_tea_cost():
-	$gui/age_tea.text = "Age Tea: $" + str (aging_cost)
+	$gui/Buffs/age_tea.text = "Age Tea: $" + str (aging_cost)
 func _on_age_tea_pressed():
-	if money >= aging_cost:
+	if money >= aging_cost and not batch:
 		money -= aging_cost
 		money_spent += aging_cost
 		xp += 10
-		aged = true
-func aged1():
-	if aged:
-		teatomoney += 0.5
-	elif not aged:
-		teatomoney *= 1
+		tea -= $gui/Buffs/age_slider.value
+		aging_tea += $gui/Buffs/age_slider.value
+		batch = true
+		aging_tea_timer()
 
+func aging_tea_timer():
+	Timer2.wait_time = 300.0
+	Timer2.one_shot = true
+	add_child(Timer2)
+	Timer2.timeout.connect(timer2_timeout)
+	Timer2.start()
+func timer2_timeout():
+	teatomoney += 0.5
+	money += aging_tea * teatomoney
+	aging_tea = 0
+	teatomoney -= 0.5
+	
+func display_age_time():
+	$"gui/Buffs/Time reamaing".text = "Time Remaing: " + str(int(Timer2.time_left)) + "s"
+func tea_slider():
+	$gui/Buffs/age_slider.min_value = 1
+	$gui/Buffs/age_slider.max_value = tea
+func display_slider_tea():
+	$gui/Buffs/age_tea_text.text = "age tea: " + str(int($gui/Buffs/age_slider.value))
 #BUY FARMING BUY FARMING BUY FARMING BUY FARMING BUY FARMING
 func _on_buy_seeds_pressed():
 	if money >= seed_cost and seed_owned <= max_seed:
@@ -107,19 +128,19 @@ func display_farmer_owned():
 	$gui/Farming/farmer_owned.text = "Hired: " +str(farmer_owned)
 func age_rack_level():
 	if level >= 3:
-		$gui/buy_aging_rack.visible =true
+		$gui/Farming/buy_aging_rack.visible =true
 func display_buy_aging_rack():
-	$gui/buy_aging_rack.text = "Buy Aging Rack: $" + str(age_rack_cost)
+	$gui/Farming/buy_aging_rack.text = "Buy Aging Rack: $" + str(age_rack_cost)
 func _on_buy_aging_rack_pressed():
 	if money >= age_rack_cost and level >= 5:
 		money -= age_rack_cost
 		money_spent += age_rack_cost
 		xp+= 25
-		$gui/buy_aging_rack.visible = false
-		$gui/age_tea.visible = true
-		$gui/buffs.visible = true
+		$gui/Farming/buy_aging_rack.visible = false
+		$gui/Buffs/age_tea.visible = true
+		$gui/Buffs.visible = true
 func display_age_cost():
-	$gui/age_tea.text = "age tea: $" + str(aging_cost)
+	$gui/Buffs/age_tea.text = "age tea: $" + str(aging_cost)
 #SETTINGS MENU SETTINGS MENU SETTINGS MENUSETTINGS MENU SETTINGS MENU SETTINGS MENU 
 func openclosesettings(): #Toggles visibility of settings menu node
 	if setting_menu_open:
@@ -177,3 +198,6 @@ func update_all():
 	leveling()
 	display_buy_aging_rack()
 	display_age_cost()
+	display_slider_tea()
+	tea_slider()
+	display_age_time()

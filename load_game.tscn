@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://r7aw6mydpodl"]
+
+[ext_resource type="Texture2D" uid="uid://bxa6q2ltjhgbw" path="res://Untitled.png" id="1_g6ten"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = 2.0
+offset_right = 1165.0
+offset_bottom = 232.0
+
+[node name="logo" type="Sprite2D" parent="CenterContainer"]
+position = Vector2(576.422, 126.318)
+texture = ExtResource("1_g6ten")

@@ -278,6 +278,30 @@ offset_bottom = 147.272
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Hired"
 
+[node name="farming" type="RichTextLabel" parent="gui/Farming"]
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 112.0
+offset_bottom = 103.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Farming"
+
+[node name="Buy_shed" type="Button" parent="gui/Farming"]
+offset_left = 8.0
+offset_top = 203.0
+offset_right = 200.0
+offset_bottom = 235.0
+text = "buy shed"
+
+[node name="buy_aging_rack" type="Button" parent="gui/Farming"]
+visible = false
+offset_left = 8.0
+offset_top = 246.0
+offset_right = 200.0
+offset_bottom = 278.0
+text = "Buy aging rack"
+
 [node name="Level" type="RichTextLabel" parent="gui"]
 offset_left = 8.0
 offset_top = 17.0
@@ -303,24 +327,31 @@ offset_bottom = 42.0
 text = "0/0"
 horizontal_alignment = 1
 
-[node name="buy_aging_rack" type="Button" parent="gui"]
+[node name="Buffs" type="CanvasLayer" parent="gui"]
 visible = false
-offset_left = 8.0
-offset_top = 204.0
-offset_right = 200.0
-offset_bottom = 236.0
-text = "Buy aging rack"
 
-[node name="age_tea" type="Button" parent="gui"]
-visible = false
+[node name="age_tea_text" type="RichTextLabel" parent="gui/Buffs"]
+offset_left = 816.0
+offset_top = 328.0
+offset_right = 1000.0
+offset_bottom = 368.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "age tea"
+
+[node name="age_slider" type="HSlider" parent="gui/Buffs"]
+offset_left = 808.0
+offset_top = 280.0
+offset_right = 1128.0
+offset_bottom = 336.0
+
+[node name="age_tea" type="Button" parent="gui/Buffs"]
 offset_left = 600.0
 offset_top = 296.0
 offset_right = 792.0
 offset_bottom = 328.0
 text = "Age Tea"
 
-[node name="buffs" type="RichTextLabel" parent="gui"]
-visible = false
+[node name="buffs" type="RichTextLabel" parent="gui/Buffs"]
 offset_left = 600.0
 offset_top = 256.0
 offset_right = 712.0
@@ -329,14 +360,14 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 25
 text = "Buffs:"
 
-[node name="Farming" type="RichTextLabel" parent="."]
-offset_left = 8.0
-offset_top = 63.0
-offset_right = 112.0
-offset_bottom = 103.0
+[node name="Timer" type="Timer" parent="gui/Buffs"]
+
+[node name="Time reamaing" type="RichTextLabel" parent="gui/Buffs"]
+offset_left = 816.0
+offset_top = 360.0
+offset_right = 1024.0
+offset_bottom = 392.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 25
-text = "Farming"
 
 [connection signal="pressed" from="gui/settings button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
@@ -347,5 +378,7 @@ text = "Farming"
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="gui/Farming/buy_seeds" to="." method="_on_buy_seeds_pressed"]
 [connection signal="pressed" from="gui/Farming/Buy_farmer" to="." method="_on_buy_farmer_pressed"]
-[connection signal="pressed" from="gui/buy_aging_rack" to="." method="_on_buy_aging_rack_pressed"]
-[connection signal="pressed" from="gui/age_tea" to="." method="_on_age_tea_pressed"]
+[connection signal="pressed" from="gui/Farming/buy_aging_rack" to="." method="_on_buy_aging_rack_pressed"]
+[connection signal="drag_ended" from="gui/Buffs/age_slider" to="." method="_on_age_slider_drag_ended"]
+[connection signal="drag_started" from="gui/Buffs/age_slider" to="." method="_on_h_slider_drag_started"]
+[connection signal="pressed" from="gui/Buffs/age_tea" to="." method="_on_age_tea_pressed"]
