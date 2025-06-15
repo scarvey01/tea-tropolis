@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://r7aw6mydpodl"]
+[gd_scene load_steps=3 format=3 uid="uid://r7aw6mydpodl"]
 
 [ext_resource type="Texture2D" uid="uid://bxa6q2ltjhgbw" path="res://Untitled.png" id="1_g6ten"]
+[ext_resource type="Script" uid="uid://cus5hhj6hvmig" path="res://load_game_menu.gd" id="1_lo7pw"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_lo7pw")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_left = 2.0
@@ -12,3 +14,13 @@ offset_bottom = 232.0
 [node name="logo" type="Sprite2D" parent="CenterContainer"]
 position = Vector2(576.422, 126.318)
 texture = ExtResource("1_g6ten")
+
+[node name="load save school" type="Button" parent="."]
+offset_left = 384.0
+offset_top = 216.0
+offset_right = 768.0
+offset_bottom = 256.0
+text = "save file 1"
+
+[connection signal="pressed" from="load save school" to="." method="_on_load_save_school_pressed"]
+[connection signal="pressed" from="load save school" to="." method="_on_load_save_1_pressed"]

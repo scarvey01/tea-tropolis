@@ -51,15 +51,16 @@ text = "Back"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_right = 1155.0
-offset_bottom = 236.0
+offset_right = 1144.0
+offset_bottom = 225.0
 
 [node name="logo" type="Sprite2D" parent="CenterContainer"]
-position = Vector2(576.422, 126.318)
+position = Vector2(574.711, 122.659)
+scale = Vector2(0.997156, 0.978728)
 texture = ExtResource("2_r21yi")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Normal" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/School" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/School" to="." method="_on_school_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/School" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_quit_pressed"]

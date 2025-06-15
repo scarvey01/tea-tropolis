@@ -1,26 +1,59 @@
 extends Node2D
 var setting_menu_open = true
 var dark_mode = false
-var level = 5 #LEVEL LEVEL LEVEL LEVEL LEVEL LEVEL
+var level = 1 #LEVEL LEVEL LEVEL LEVEL LEVEL LEVEL
 var xp = 0 #########################
-var levelxp = 100########################
-var tea = 1000000000## TEA TEA TEA TEA TEA TEA TEA TEA
+var levelxp = 50########################
+var tea = 0## TEA TEA TEA TEA TEA TEA TEA TEA
 var teaps = 1
 var tea_all_time = 0 
 var teatomoney = 0.5
-var money = 10000 ### Money Money Money Money Money Money
+var money = 0 ### Money Money Money Money Money Money
 var money_all_time = 0
 var money_spent = 0
-var seed_cost = 10
+var seed_cost = 0
 var max_seed = 9
 var seed_owned = 0
 var farmer_cost = 100
 var farmer_owned = 0
+var age_rack_owned = false
 var age_rack_cost = 2500
 var aging_cost = 1000
 var aging_tea = 0
 var Timer2 = Timer.new()
 var batch = false
+#######################################################################################################
+
+
+func save_game():
+	var saved_game:SavedGame = SavedGame.new()
+	
+	saved_game.dark_mode = dark_mode
+	saved_game.tea = tea
+	saved_game.teaps = teaps
+	saved_game.teatomoney = teatomoney
+	saved_game.tea_all_time = tea_all_time
+	saved_game.money = money
+	saved_game.money_all_time = money_all_time
+	saved_game.money_spent = money_spent
+	saved_game.level = level
+	saved_game.levelxp = levelxp
+	saved_game.xp = xp
+	saved_game.seed_cost = seed_cost
+	saved_game.max_seed = max_seed
+	saved_game.max_seed = seed_owned
+	saved_game.farmer_cost = farmer_cost
+	saved_game.farmer_owned = farmer_owned
+	saved_game.age_rack_owned = age_rack_owned
+	saved_game.aging_tea = aging_tea
+	saved_game.batch = batch
+	
+	ResourceSaver.save(saved_game, "user://savegame.tres")
+	
+func load_game():
+	var saved_game:SavedGame = load("user://savegame.tres") as SavedGame
+	
+	var _darkmode = saved_game.dark_mode
 
 func _ready():
 	# Create a new Timer
@@ -35,8 +68,7 @@ func _ready():
 	# Connect the signal
 	timer1.timeout.connect(_on_timer1_timeout)
 	timer1.start()
-	tea += teaps
-	tea_all_time += teaps
+	
 func _on_timer1_timeout(): #REFRESHES EVERYTHING
 	tea += teaps
 	tea_all_time += teaps
@@ -44,9 +76,26 @@ func _on_timer1_timeout(): #REFRESHES EVERYTHING
 func check_level():
 	age_rack_level()
 #RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES RIGHT SIDE OF SCREEN VALUES
-func _process(delta):
+func _process(_delta):
 	display_slider_tea()
-	
+	display_needed_xp()
+	diplay_xp_bar()
+	check_level()
+	display_tea()
+	display_money()
+	check_level()
+	display_teaps()
+	display_total_tea()
+	display_total_money()
+	display_money_spent()
+	display_seed_cost()
+	display_farmer_cost()
+	display_seed_owned()
+	display_farmer_owned()
+	display_buy_aging_rack()
+	display_age_cost()
+	display_slider_tea()
+	display_age_time()
 func display_tea():
 	$gui/Teaamt.text = "Tea: " + str(int(tea))
 func display_money():
@@ -68,7 +117,7 @@ func diplay_xp_bar():
 func leveling():
 	if xp >= levelxp:
 		level += 1
-		levelxp += 50
+		levelxp += 25
 		xp = 0
 func display_age_tea_cost():
 	$gui/Buffs/age_tea.text = "Age Tea: $" + str (aging_cost)
@@ -81,7 +130,6 @@ func _on_age_tea_pressed():
 		aging_tea += $gui/Buffs/age_slider.value
 		batch = true
 		aging_tea_timer()
-
 func aging_tea_timer():
 	Timer2.wait_time = 300.0
 	Timer2.one_shot = true
@@ -92,8 +140,7 @@ func timer2_timeout():
 	teatomoney += 0.5
 	money += aging_tea * teatomoney
 	aging_tea = 0
-	teatomoney -= 0.5
-	
+	teatomoney -= 0.5	
 func display_age_time():
 	$"gui/Buffs/Time reamaing".text = "Time Remaing: " + str(int(Timer2.time_left)) + "s"
 func tea_slider():
@@ -106,7 +153,7 @@ func _on_buy_seeds_pressed():
 	if money >= seed_cost and seed_owned <= max_seed:
 		money -= seed_cost
 		money_spent += seed_cost
-		seed_cost += 10
+		seed_cost += 5
 		seed_owned += 1
 		xp += 10
 		teaps += 1
@@ -119,7 +166,7 @@ func _on_buy_farmer_pressed():
 		money -= farmer_cost
 		farmer_owned += 1
 		money_spent += farmer_cost
-		farmer_cost += 100
+		farmer_cost += 50
 		max_seed += 2
 		xp += 20
 func display_seed_owned():
@@ -130,7 +177,10 @@ func age_rack_level():
 	if level >= 3:
 		$gui/Farming/buy_aging_rack.visible =true
 func display_buy_aging_rack():
-	$gui/Farming/buy_aging_rack.text = "Buy Aging Rack: $" + str(age_rack_cost)
+	if not age_rack_owned:
+		$gui/Farming/buy_aging_rack.text = "Buy Aging Rack: $" + str(age_rack_cost)
+	else:
+		$gui/Farming/buy_aging_rack.visible = false
 func _on_buy_aging_rack_pressed():
 	if money >= age_rack_cost and level >= 5:
 		money -= age_rack_cost
@@ -139,6 +189,7 @@ func _on_buy_aging_rack_pressed():
 		$gui/Farming/buy_aging_rack.visible = false
 		$gui/Buffs/age_tea.visible = true
 		$gui/Buffs.visible = true
+		age_rack_owned = true
 func display_age_cost():
 	$gui/Buffs/age_tea.text = "age tea: $" + str(aging_cost)
 #SETTINGS MENU SETTINGS MENU SETTINGS MENUSETTINGS MENU SETTINGS MENU SETTINGS MENU 
@@ -178,9 +229,8 @@ func dark_mode1(): #toggles visibility of gray box
 func _on_darkmode_pressed():
 	dark_mode1()
 
-
-
 func update_all():
+	save_game()
 	display_tea()
 	display_money()
 	check_level()
