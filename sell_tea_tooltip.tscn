@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://duswcnao2esdi"]
+
+[ext_resource type="Script" uid="uid://hfw7acfdkgsj" path="res://Game (school)/sell_tea_tooltip.gd" id="1_u3r5u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fednv"]
+bg_color = Color(0.0117647, 0.0117647, 0.0117647, 0.572549)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.266575, 0.266575, 0.266575, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="sell_tea_tooltip" type="PanelContainer"]
+top_level = true
+offset_left = -369.0
+offset_top = 107.0
+offset_right = -183.0
+offset_bottom = 161.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fednv")
+script = ExtResource("1_u3r5u")
+
+[node name="tea_value" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "Current Tea Value:"
+fit_content = true
+scroll_following = true
+horizontal_alignment = 1
+vertical_alignment = 1

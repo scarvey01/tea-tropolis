@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://du3qtyr67kyc5"]
+[gd_scene load_steps=13 format=3 uid="uid://du3qtyr67kyc5"]
 
 [ext_resource type="Texture2D" uid="uid://bib4evy7tlg0x" path="res://Game (school)/textures/abstract-surface-textures-white-concrete-stone-wall_74190-8189.png" id="1_4hdnx"]
 [ext_resource type="Script" uid="uid://bt5b3rvjng254" path="res://Game (school)/tea_tropolis_school.gd" id="1_66eql"]
 [ext_resource type="Texture2D" uid="uid://bchw2ll5wfabf" path="res://Game (school)/textures/smooth-gray-background-with-high-quality_53876-124606.png" id="2_v3kle"]
 [ext_resource type="Texture2D" uid="uid://b1tedpbkbypj" path="res://Game (school)/textures/gray background 2.png" id="3_yk80m"]
 [ext_resource type="Texture2D" uid="uid://cuuvr8ldkwgls" path="res://Game (school)/textures/button icons/settings.png" id="4_66eql"]
+[ext_resource type="Script" uid="uid://bvwnwluspge5f" path="res://Game (school)/sell_tea.gd" id="6_61ta2"]
+[ext_resource type="PackedScene" uid="uid://duswcnao2esdi" path="res://sell_tea_tooltip.tscn" id="7_fednv"]
 
 [sub_resource type="GDScript" id="GDScript_66eql"]
 script/source = "extends TextureButton
@@ -34,7 +36,6 @@ texture = ExtResource("1_4hdnx")
 metadata/_edit_lock_ = true
 
 [node name="gray" type="TextureRect" parent="Base"]
-visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("3_yk80m")
@@ -112,6 +113,11 @@ offset_bottom = 215.0
 theme_override_colors/icon_focus_color = Color(0.807843, 0.807843, 0.807843, 1)
 theme_override_colors/icon_normal_color = Color(0.772549, 0.772549, 0.772549, 1)
 text = "sell tea"
+script = ExtResource("6_61ta2")
+
+[node name="sell_tea_tooltip" parent="gui/sell_tea" instance=ExtResource("7_fednv")]
+visible = false
+clip_contents = true
 
 [node name="settings menu" type="CanvasLayer" parent="gui"]
 visible = false
@@ -370,8 +376,8 @@ offset_bottom = 392.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="gui/settings button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
 [connection signal="pressed" from="gui/sell_tea" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="gui/sell_tea" to="." method="_on_sell_tea_pressed"]
 [connection signal="visibility_changed" from="gui/settings menu/settings menu" to="." method="_on_settings_menu_visibility_changed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/darkmode" to="." method="_on_darkmode_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]

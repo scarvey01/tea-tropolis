@@ -17,7 +17,7 @@ var seed_owned = 0
 var farmer_cost = 100
 var farmer_owned = 0
 var age_rack_owned = false
-var age_rack_cost = 2500
+var age_rack_cost = 1700
 var aging_cost = 1000
 var aging_tea = 0
 var Timer2 = Timer.new()
@@ -167,7 +167,7 @@ func _on_buy_farmer_pressed():
 		farmer_owned += 1
 		money_spent += farmer_cost
 		farmer_cost += 50
-		max_seed += 2
+		max_seed += 4
 		xp += 20
 func display_seed_owned():
 	$gui/Farming/seed_owned.text = "Owned: " + str(seed_owned)
@@ -229,6 +229,12 @@ func dark_mode1(): #toggles visibility of gray box
 func _on_darkmode_pressed():
 	dark_mode1()
 
+
+#TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP 
+func sell_tea_tool_tip():
+	$gui/sell_tea/sell_tea_tooltip/tea_value.text = "Tea Value: $" +str(teatomoney)
+
+
 func update_all():
 	save_game()
 	display_tea()
@@ -251,3 +257,4 @@ func update_all():
 	display_slider_tea()
 	tea_slider()
 	display_age_time()
+	sell_tea_tool_tip()
