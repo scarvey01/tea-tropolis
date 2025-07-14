@@ -16,6 +16,7 @@ var max_seed = 9
 var seed_owned = 0
 var farmer_cost = 100
 var farmer_owned = 0
+var farmer_effect = 4
 var age_rack_owned = false
 var age_rack_cost = 1700
 var aging_cost = 1000
@@ -96,6 +97,7 @@ func _process(_delta):
 	display_age_cost()
 	display_slider_tea()
 	display_age_time()
+	hire_farmer_tool_tip()
 func display_tea():
 	$gui/Teaamt.text = "Tea: " + str(int(tea))
 func display_money():
@@ -167,7 +169,7 @@ func _on_buy_farmer_pressed():
 		farmer_owned += 1
 		money_spent += farmer_cost
 		farmer_cost += 50
-		max_seed += 4
+		max_seed += farmer_effect
 		xp += 20
 func display_seed_owned():
 	$gui/Farming/seed_owned.text = "Owned: " + str(seed_owned)
@@ -205,6 +207,8 @@ func openclosesettings(): #Toggles visibility of settings menu node
 		display_tea()
 func _on_settings_button_pressed(): 
 	openclosesettings()
+func _on_x_pressed():
+	openclosesettings()
 func _input(event): 
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
@@ -231,8 +235,8 @@ func _on_darkmode_pressed():
 
 
 #TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP TOOL TIP 
-func sell_tea_tool_tip():
-	$gui/sell_tea/sell_tea_tooltip/tea_value.text = "Tea Value: $" +str(teatomoney)
+func hire_farmer_tool_tip():
+	$gui/Farming/Buy_farmer/farmer_tip/farmer_tip_text.text = "+" +str(farmer_effect) + " potential seeds"
 
 
 func update_all():
@@ -257,4 +261,5 @@ func update_all():
 	display_slider_tea()
 	tea_slider()
 	display_age_time()
-	sell_tea_tool_tip()
+
+	

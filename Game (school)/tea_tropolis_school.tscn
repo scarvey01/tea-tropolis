@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://du3qtyr67kyc5"]
+[gd_scene load_steps=15 format=3 uid="uid://du3qtyr67kyc5"]
 
 [ext_resource type="Texture2D" uid="uid://bib4evy7tlg0x" path="res://Game (school)/textures/abstract-surface-textures-white-concrete-stone-wall_74190-8189.png" id="1_4hdnx"]
 [ext_resource type="Script" uid="uid://bt5b3rvjng254" path="res://Game (school)/tea_tropolis_school.gd" id="1_66eql"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://b1tedpbkbypj" path="res://Game (school)/textures/gray background 2.png" id="3_yk80m"]
 [ext_resource type="Texture2D" uid="uid://cuuvr8ldkwgls" path="res://Game (school)/textures/button icons/settings.png" id="4_66eql"]
 [ext_resource type="Script" uid="uid://bvwnwluspge5f" path="res://Game (school)/sell_tea.gd" id="6_61ta2"]
-[ext_resource type="PackedScene" uid="uid://duswcnao2esdi" path="res://sell_tea_tooltip.tscn" id="7_fednv"]
+[ext_resource type="Script" uid="uid://d2u4ejjy02ny0" path="res://Game (school)/buy_farmer.gd" id="8_t1q5n"]
+[ext_resource type="PackedScene" uid="uid://b02dugcxolg0n" path="res://farmer_tip.tscn" id="9_4hojh"]
+[ext_resource type="Script" uid="uid://dr023glnwe0qq" path="res://farmer_tip.gd" id="10_ryrv8"]
 
 [sub_resource type="GDScript" id="GDScript_66eql"]
 script/source = "extends TextureButton
@@ -114,10 +116,6 @@ theme_override_colors/icon_focus_color = Color(0.807843, 0.807843, 0.807843, 1)
 theme_override_colors/icon_normal_color = Color(0.772549, 0.772549, 0.772549, 1)
 text = "sell tea"
 script = ExtResource("6_61ta2")
-
-[node name="sell_tea_tooltip" parent="gui/sell_tea" instance=ExtResource("7_fednv")]
-visible = false
-clip_contents = true
 
 [node name="settings menu" type="CanvasLayer" parent="gui"]
 visible = false
@@ -237,6 +235,19 @@ offset_bottom = 312.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Money spent all time:  "
 
+[node name="X" type="Button" parent="gui/settings menu/settings menu/settings options"]
+offset_left = 733.0
+offset_top = 97.0
+offset_right = 757.0
+offset_bottom = 128.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+text = "X"
+icon_alignment = 1
+
 [node name="Farming" type="CanvasLayer" parent="gui"]
 
 [node name="Farming" type="RichTextLabel" parent="gui/Farming"]
@@ -261,6 +272,16 @@ offset_top = 160.0
 offset_right = 200.0
 offset_bottom = 192.0
 text = "Buy farmers"
+script = ExtResource("8_t1q5n")
+
+[node name="farmer_tip" parent="gui/Farming/Buy_farmer" instance=ExtResource("9_4hojh")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 160.0
+offset_bottom = 52.0
+script = ExtResource("10_ryrv8")
 
 [node name="seed_owned" type="RichTextLabel" parent="gui/Farming"]
 anchors_preset = -1
@@ -382,6 +403,7 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/darkmode" to="." method="_on_darkmode_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="gui/settings menu/settings menu/settings options/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="gui/settings menu/settings menu/settings options/X" to="." method="_on_x_pressed"]
 [connection signal="pressed" from="gui/Farming/buy_seeds" to="." method="_on_buy_seeds_pressed"]
 [connection signal="pressed" from="gui/Farming/Buy_farmer" to="." method="_on_buy_farmer_pressed"]
 [connection signal="pressed" from="gui/Farming/buy_aging_rack" to="." method="_on_buy_aging_rack_pressed"]

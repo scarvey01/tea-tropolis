@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dqnmyn3w4flmw"]
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_left = 34.0
+offset_top = 146.0
+offset_right = 232.0
+offset_bottom = 200.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+text = "+? seeds
+ "
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162

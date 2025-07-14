@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b02dugcxolg0n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0drif"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 0.815686)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="farmer_tip" type="PanelContainer"]
+offset_left = 13.0
+offset_top = 108.0
+offset_right = 173.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0drif")
+
+[node name="farmer_tip_text" type="RichTextLabel" parent="."]
+layout_mode = 2
+text = "+4 potential seeds"
+horizontal_alignment = 1
+vertical_alignment = 1
